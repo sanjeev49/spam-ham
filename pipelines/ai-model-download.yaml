@@ -1,0 +1,24 @@
+context_parser: pypyr.parser.keyvaluepairs
+steps:
+  - name: pypyr.steps.contextsetf
+    comment: set some arbitrary values in context
+    in:
+      contextSetf:
+        dest_dir: models/spam-sms
+        file_keys: [
+            'exports/spam-sms/spam-model.h5', 
+            'exports/spam-sms/spam-classifer-tokenizer.json', 
+            'exports/spam-sms/spam-classifer-metadata.json'
+          ]
+  - name: pypyr.steps.py
+    comment: Run python code to download the above file keys.
+    in:
+      py: |
+          import os
+          import pathlib
+          import boto3
+          from dotenv import load_dotenv
+          load_dotenv()
+          dest_path = pathlib.Path(dest_dir).resolve()
+          dest_path.mkdir(exist_ok = True, parents=True)
+          print(dest_path, dest_path.exists())
