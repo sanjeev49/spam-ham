@@ -58,8 +58,8 @@ def predict(query:str):
     sequences = AI_TOKENIZER.texts_to_sequences([query])
     maxlen = MODEL_METADATA.get('max_sequence') or 280
     x_input = pad_sequences(sequences, maxlen = maxlen)
-    print(x_input)
-    print(x_input.shape)
+    #print(x_input)
+    #print(x_input.shape)
     preds_array = AI_MODEL.predict(x_input) # list of predictions 
     preds = preds_array[0]
     top_idx_val  = np.argmax(preds)
