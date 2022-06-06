@@ -1,0 +1,9 @@
+
+FROM codingforentrepreneurs/python:3.9-webapp-cassandra
+COPY ./app ./proj/app
+COPY ./requirements.txt ./proj/requirements.txt
+WORKDIR /app
+
+RUN python3 -m venv /opt/venv && /opt/venv/bin/python -m pip install -r requirements.txt
+
+#CMD [ "executable" ]
