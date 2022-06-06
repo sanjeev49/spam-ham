@@ -91,3 +91,6 @@ def export_inferences():
     #rows = DB_SESSION.execute(cql_query)
     statement = SimpleStatement(cql_query) 
     return StreamingResponse(fetch_rows(statement, 25, DB_SESSION))
+
+
+#docker run -it spam-classifier /bin/bash
