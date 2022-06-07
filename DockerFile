@@ -4,8 +4,17 @@ COPY .env /proj/.env
 COPY ./app /proj/app
 COPY ./requirements.txt /proj/requirements.txt
 COPY ./entrypoint.sh /proj/entrypoint.sh
+COPY ./pipelines /proj/pipelines
+
 WORKDIR /proj
 
+RUN chmod +x entrypoint.sh
+
+
+
 RUN python3 -m venv /opt/venv && /opt/venv/bin/python -m pip install -r requirements.txt
+
+RUN /opt/venv/bin/python -m pypyr /proj/pipelines/ai-model-download
+
 
 CMD [ "entrypoint.sh" ]

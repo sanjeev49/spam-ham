@@ -1,4 +1,6 @@
 cassandra-driver
+cryptography
+boto3
 fastapi
 gunicorn
 jupyter

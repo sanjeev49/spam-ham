@@ -1,9 +1,6 @@
-from msilib import sequence
-from app.raw import AI_TOKENIZER, MODEL_METADATA
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.text import tokenizer_from_json
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-from lib2to3.pgen2.token import OP
 from typing import Optional, List
 from dataclasses import dataclass
 from pathlib import Path
