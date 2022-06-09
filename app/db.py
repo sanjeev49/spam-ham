@@ -8,7 +8,9 @@ BASE_DIR = pathlib.Path(__file__).resolve().parent
 SOURCE_DIR = BASE_DIR / 'ignored'
 # if not SOURCE_DIR.exists():
 #     SOURCE_DIR = BASE_DIR / 'decrypted'
-
+SOURCE_DIR = BASE_DIR/"ignored"
+if not SOURCE_DIR.exists():
+    SOURCE_DIR = BASE_DIR/"decrypted"
 CLUSTER_BUNDLE = str( SOURCE_DIR / 'secure-connect-spam-classifier.zip')
 
 settings = config.get_settings()

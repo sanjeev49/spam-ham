@@ -1,14 +1,14 @@
 import pathlib
-from pickle import OBJ
 #from sqlite3.dbapi2 import _Statement
 from typing import Optional
-from unittest import result
-import uuid
-from attr import has
-from fastapi import FastAPI 
+from fastapi import FastAPI ,Request
 from cassandra.cqlengine.management import sync_table
 from cassandra.query import SimpleStatement
 from fastapi.responses import StreamingResponse
+from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+
 
 from . import (
     config,
@@ -49,19 +49,25 @@ def on_startup():
    sync_table(SMSInfrence)
 
 
-@app.get("/")
-def read_index(q:Optional[str] = None):
-    return {"hello":"world"}
+app.mount("/static", StaticFiles(directory="static"), name = "static")
+templates = Jinja2Templates(directory="templates")
+
+@app.get('/', response_class=HTMLResponse)
+def main(request:Request):
+    return templates.TemplateResponse("item.html", {"request":request})
+
+
 
 @app.post("/")
 def create_inference(query:schema.Query):
     global SPAM_MODEL
-    preds_dict = SPAM_MODEL.predict_text(query.q)
+    preds_dict = SPAM_MODEL.predict_text(query.data)
     top = preds_dict.get('top') # {label: , conf}
-    data = {"query": query.q, **top}
+    data = {"query": query.data, **top}
     obj = SMSInfrence.objects.create(**data)
     # NoSQL -> cassandra -> DataStax AstraDB
-    return obj
+    return {"text":data}
+    #return obj
 
 @app.get("/infrences")
 def list_infrences():
@@ -94,3 +100,4 @@ def export_inferences():
 
 
 #docker run -it spam-classifier /bin/bash
+# for update docker codes docker system prune -a --volumes

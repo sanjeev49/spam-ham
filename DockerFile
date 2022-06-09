@@ -5,16 +5,21 @@ COPY ./app /proj/app
 COPY ./requirements.txt /proj/requirements.txt
 COPY ./entrypoint.sh /proj/entrypoint.sh
 COPY ./pipelines /proj/pipelines
+COPY ./templates /proj/templates
+COPY ./static /proj/static
 
 WORKDIR /proj
 
 RUN chmod +x entrypoint.sh
 
 
-
+RUN python3 -m venv /opt/venv && /opt/venv/bin/python -m pip install --upgrade pip
 RUN python3 -m venv /opt/venv && /opt/venv/bin/python -m pip install -r requirements.txt
 
 RUN /opt/venv/bin/python -m pypyr /proj/pipelines/ai-model-download
+RUN /opt/venv/bin/python -m pypyr /proj/pipelines/decrypt
+
+EXPOSE 8000
 
 
-CMD [ "entrypoint.sh" ]
+CMD [ "./entrypoint.sh" ]

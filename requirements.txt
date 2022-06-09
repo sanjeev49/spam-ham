@@ -9,3 +9,4 @@ pypyr
 python-dotenv
 tensorflow
 uvicorn
+jinja2

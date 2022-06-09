@@ -68,7 +68,7 @@ class AIModel:
 
     def get_label_legend_inverted(self):
         legend = self.get_metadata().get('labels_legend_inverted') or {}
-        print(self.get_metadata(), legend.keys())
+        #print(self.get_metadata(), legend.keys())
         if len(legend.keys()) != 2:
             raise Exception("your legend is incorrect")
         return legend

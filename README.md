@@ -9,3 +9,9 @@ This project is in development phase
 uvicorn app.main:app --reload 
 
 # it will be running on port 8000 
+
+# Run this with docker 
+
+docker build -t spam-sms -f DockerFile .
+
+docker run -p 8000:8000 spam-sms
