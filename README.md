@@ -15,3 +15,12 @@ uvicorn app.main:app --reload
 docker build -t spam-sms -f DockerFile .
 
 docker run -p 8000:8000 spam-sms
+
+# another way is just run 
+docker compose up --build
+
+# to push this image 
+docker compose push 
+
+# to run image download from docker 
+docker run -p 8000:8000 sanjeev49/spam_ham_classifier_lstm

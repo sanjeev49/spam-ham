@@ -1,0 +1,10 @@
+version: '3.9'
+
+services:
+  spam_ham_classifier_lstm:
+    container_name: spam_ham_classifier_lstm
+    image: sanjeev49/spam_ham_classifier_lstm
+    ports:
+      - "8000:8000"
+    build: 
+      dockerfile: DockerFile

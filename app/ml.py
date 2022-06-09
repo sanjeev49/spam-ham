@@ -43,7 +43,7 @@ class AIModel:
 
     def get_model(self):
         if not self.model:
-            raise Exception("MOdel not implemented")
+            raise Exception("Model not implemented")
         return self.model
 
     def get_tokenizer(self):
